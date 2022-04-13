@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AJAX POST请求</title>
+	<style>
+	#result{
+		width: 200px;
+		height: 100px;
+		border: solid 1px #903;
+	}
+</style>
+</head>
+
+<body>
+	<div id="result"></div>
+	<script>
+		// 获取元素对象
+		const result = document.getElementById('result')
+		// 绑定事件
+		result.addEventListener('mouseover', function(){
+			// console.log('test')
+			// 1.创建对象
+			const xhr = new XMLHttpRequest()
+			// 2.初始化 设置请求类型 与 URL
+			xhr.open('POST', 'http://127.0.0.1:8000/server')
+			// 设置请求头 （一般会把身份校验的信息放在头信息里，传递给服务器，由服务器对参数做提取，对用户的身份做校验）
+			// 第一个参数：请求头的名字		Content-Type 设置请求体内容的类型
+			// 第二个参数：请求头的值		参数查询字符串(a=100&b=200&c=300)的类型
+			xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+			// 未设置前：a=100&b=200&c=300
+			// 设置后：
+				// a: 100
+				// b: 200
+				// c: 300
+			// 添加自定义请求头 需要在server.js里重新设置才能正常显示
+			xhr.setRequestHeader('name','zhangsan')
+
+			// 3.发送
+			// 可以设置任意类型任意格式数据，比较灵活，只要服务端能处理就可以
+			xhr.send('a=100&b=200&c=300')
+			// xhr.send('a:100&b:200&c:300')
+			// xhr.send('12345566677')
+			// 4.事件绑定
+			xhr.onreadystatechange = function(){
+				// 判断
+				if(xhr.readyState === 4){
+					if(xhr.status >= 200 && xhr.status < 300){
+						// 处理服务端返回的结果
+						result.innerHTML = xhr.response
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>

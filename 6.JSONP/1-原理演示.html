@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSONP原理演示</title>
+  </head>
+  <style>
+    #result {
+      width: 300px;
+      height: 100px;
+      border: solid 1px #78a;
+    }
+  </style>
+  <body>
+    <div id="result"></div>
+    <script>
+      // 处理数据
+      function handle(data) {
+        const result = document.getElementById("result");
+        result.innerHTML = data.name;
+      }
+    </script>
+    <!-- <script src="./js/app.js"></script> -->
+    <!-- <script src="http://127.0.0.1:5500/6.JSONP/1-%E5%8E%9F%E7%90%86%E6%BC%94%E7%A4%BA.html"></script> -->
+    <script src="http://127.0.0.1:8000/jsonp-server"></script>
+    <!-- script发送请求后 要的是函数的调用的内容，就是一段js代码 -->
+    <!-- JS引擎才嫩解析并执行里面的内容 -->
+    <!-- 返回的结果形式是：函数的调用 ，这个函数的参数 就是我们想给客户端返回的结果数据-->
+    <!-- 这个函数前端必须要提前声明 -->
+  </body>
+</html>
